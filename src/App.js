@@ -4,6 +4,10 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useState } from 'react';
 import { useHistory } from "react-router"
 import './App.css';
+import Restaurants from './components/Restaurants';
+import Restaurant from './components/Restaurant';
+import NotFound from './components/NotFound';
+import About from './components/About';
 
 
 function App() {
@@ -47,7 +51,15 @@ function App() {
 
       <Container>
         <Row>
-          <Col></Col>
+          <Col>
+            <Switch>
+              <Route exact path="/"> <Redirect to="/restaurants" /> </Route>
+              <Route exact path="/about" component={About} />
+              <Route exact path="/restaurants" component={Restaurants} />
+              <Route exact path="/restaurant/:id" component={Restaurant} />
+              <Route component={NotFound} />
+            </Switch>
+          </Col>
         </Row>
       </Container>
     </>
