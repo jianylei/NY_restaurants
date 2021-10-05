@@ -1,1 +1,5 @@
 .table-hover tr:hover{ cursor:pointer; }
+
+.card{
+  margin: 40px 0;
+}
