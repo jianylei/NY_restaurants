@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router"
+import { useLocation, useHistory } from "react-router"
 import queryString from 'query-string';
-import { Card, Table } from "react-bootstrap"
+import { Card, Pagination, Table } from "react-bootstrap"
 
 export default function Restaurants() {
     const [restaurants, setRestaurants] = useState(null);
     const [page, setPage] = useState(1);
     const perPage = 10;
     let location = useLocation();
+    let history = useHistory();
 
     useEffect(() => {
         let borough = queryString.parse(location.search)
@@ -17,12 +18,14 @@ export default function Restaurants() {
 
         fetch(uri).then(res => res.json()).then(data => {
             setRestaurants(data)
+        }).catch(err => {
+            setRestaurants(null)
         })
 
     }, [location.search, page])
 
     const previousPage = () => {
-        setPage(page > 0 ? page - 1 : page)
+        setPage(page > 1 ? page - 1 : page)
     }
 
     const nextPage = () => {
@@ -37,21 +40,62 @@ export default function Restaurants() {
         return splitStr.join(' ');
     }
 
-    const restaurantList = restaurants?.map((restaurant, index) => {
+    const getList = () => {
         return (
-            <tr key={index}>
-                <td>{restaurant.name}</td>
-                <td>{restaurant.address.building} {restaurant.address.street}</td>
-                <td>{restaurant.borough}</td>
-                <td>{restaurant.cuisine}</td>
-            </tr>
-
+            restaurants?.map((restaurant, index) => {
+                return (
+                    <tr key={index} onClick={() => { history.push(`/restaurant/${restaurant._id}`) }}>
+                        <td>{restaurant.name}</td>
+                        <td>{restaurant.address.building} {restaurant.address.street}</td>
+                        <td>{restaurant.borough}</td>
+                        <td>{restaurant.cuisine}</td>
+                    </tr>
+                )
+            })
         )
-    })
+    }
 
+    const renderTable = () => {
+        let errFlag = false
+        let jsxString
+        try {
+            jsxString = getList()
+        } catch (err) {
+            jsxString = ""
+            errFlag = true
+        }
+
+        if (jsxString) {
+            return (
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Borough</th>
+                            <th>Cuisine</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {jsxString}
+                    </tbody>
+                </Table>
+            )
+        } else {
+            return (
+                <Card>
+                    <Card.Header>
+                        <Card.Text>
+                            {errFlag? "No Restaurants Found" : "...Loading Restaurants"}
+                        </Card.Text>
+                    </Card.Header>
+                </Card>
+            )
+        }
+    }
     return (
         <div>
-            <Card className="card" style={{width: "100%"}}>
+            <Card className="card">
                 <Card.Header>
                     <Card.Title>Restuarant List</Card.Title>
                     <Card.Text>
@@ -59,19 +103,12 @@ export default function Restaurants() {
                     </Card.Text>
                 </Card.Header>
             </Card>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Borough</th>
-                        <th>Cuisine</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {restaurantList}
-                </tbody>
-            </Table>
+            {renderTable()}
+            <Pagination>
+                <Pagination.Prev onClick={previousPage} />
+                <Pagination.Item>{page}</Pagination.Item>
+                <Pagination.Next onClick={nextPage} />
+            </Pagination>
         </div>
     )
 }
