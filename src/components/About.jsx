@@ -1,21 +1,12 @@
-import { Card } from "react-bootstrap"
+import CardMain from "./CardMain";
 
 export default function About() {
+    const body = (
+        <p className="about-body">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam iusto aliquam ad et accusantium distinctio quae. Culpa architecto provident nostrum sequi, molestias, quaerat assumenda impedit animi ab modi at laborum facere possimus temporibus tempore voluptatibus odit quis eum ipsum qui cupiditate nobis, reiciendis sit aliquam. Sint provident eligendi facilis. Accusamus?
+        </p>
+    )
     return (
-        <Card className="card">
-            <Card.Header>About</Card.Header>
-            <Card.Body>
-                <Card.Title>All about me - the developer</Card.Title>
-                <Card.Text>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing 
-                    elit. Officiis voluptatibus, cupiditate alias aliquam 
-                    non cum hic esse animi molestiae ducimus, eum nisi possimus
-                     voluptas aliquid laboriosam error! Libero tempore hic, optio
-                      adipisci nihil est consequuntur eaque, vitae voluptates
-                       accusamus at vero reiciendis ut saepe asperiores. Beatae 
-                       expedita iure cumque aut?
-                </Card.Text>
-            </Card.Body>
-        </Card>
+        <CardMain head="About" subHead="All about me - the developer." body={body} />
     )
 }

@@ -1,5 +1,59 @@
-.table-hover tr:hover{ cursor:pointer; }
+*{
+  font-family: 'Poppins', sans-serif;
+}
 
-.card{
+.table-hover tr:hover{ 
+  cursor:pointer; 
+}
+
+.card-container{
+  padding: 40px;
+  outline: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.card-head-title{
+  font-weight: 400;
+}
+
+.card-sub-title{
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.map-container{
+  height: 400px;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.grade-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  width: 100%;
+  margin-top: 40px;
+  
+}
+.card-grade{
+  width: 200px;
+  height: 110px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.grade-letter{
+  font-weight: 300;
+}
+
+/* About */
+.about-body{
+  font-weight: 300;
+  margin-top: 20px;
+}
+
+.not-found-msg{
   margin: 40px 0;
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router"
 import queryString from 'query-string';
 import { Card, Pagination, Table } from "react-bootstrap"
+import CardMain from "./CardMain";
 
 export default function Restaurants() {
     const [restaurants, setRestaurants] = useState(null);
@@ -24,6 +25,11 @@ export default function Restaurants() {
 
     }, [location.search, page])
 
+    //Reset page to 1 when searching Borough
+    useEffect(() => {
+        setPage(1)
+    }, [location.search])
+
     const previousPage = () => {
         setPage(page > 1 ? page - 1 : page)
     }
@@ -32,6 +38,7 @@ export default function Restaurants() {
         setPage(page + 1)
     }
 
+    //Capitalize strings: staten island -> Staten Island
     const captitalize = (str) => {
         var splitStr = str.toLowerCase().split(' ');
         for (var i = 0; i < splitStr.length; i++) {
@@ -56,16 +63,14 @@ export default function Restaurants() {
     }
 
     const renderTable = () => {
-        let errFlag = false
         let jsxString
         try {
             jsxString = getList()
         } catch (err) {
             jsxString = ""
-            errFlag = true
         }
 
-        if (jsxString) {
+        if (jsxString && Object.keys(restaurants).length) {
             return (
                 <Table striped bordered hover>
                     <thead>
@@ -83,32 +88,32 @@ export default function Restaurants() {
             )
         } else {
             return (
-                <Card>
-                    <Card.Header>
-                        <Card.Text>
-                            {errFlag? "No Restaurants Found" : "...Loading Restaurants"}
-                        </Card.Text>
-                    </Card.Header>
-                </Card>
+                <div className="not-found-msg">...No Restaurants Found</div>
             )
         }
     }
-    return (
-        <div>
-            <Card className="card">
-                <Card.Header>
-                    <Card.Title>Restuarant List</Card.Title>
-                    <Card.Text>
-                        Full list of restaurants. Optionally sorted by borough
-                    </Card.Text>
-                </Card.Header>
-            </Card>
+
+    //Remove pagination when no results are found
+    const setPagination = () => {
+        if (restaurants && Object.keys(restaurants).length) {
+            return (
+                <Pagination>
+                    <Pagination.Prev onClick={previousPage} />
+                    <Pagination.Item>{page}</Pagination.Item>
+                    <Pagination.Next onClick={nextPage} />
+                </Pagination>
+            )
+        }
+    }
+
+    const body = (
+        <>
             {renderTable()}
-            <Pagination>
-                <Pagination.Prev onClick={previousPage} />
-                <Pagination.Item>{page}</Pagination.Item>
-                <Pagination.Next onClick={nextPage} />
-            </Pagination>
-        </div>
+            {setPagination()}
+        </>
+    )
+
+    return (
+        <CardMain head="Restuarant List" subHead="Full list of restaurants. Optionally sorted by borough" body={body} />
     )
 }
