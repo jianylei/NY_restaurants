@@ -7,6 +7,7 @@ import CardMain from "./CardMain";
 export default function Restaurants() {
     const [restaurants, setRestaurants] = useState(null);
     const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(true)
     const perPage = 10;
     let location = useLocation();
     let history = useHistory();
@@ -16,8 +17,9 @@ export default function Restaurants() {
         let tmp = captitalize(String(borough.borough))
         let uri = (borough.borough) ? `https://immense-hamlet-01820.herokuapp.com/api/restaurants?page=${page}&perPage=${perPage}&borough=${tmp}` :
             `https://immense-hamlet-01820.herokuapp.com/api/restaurants?page=${page}&perPage=${perPage}`;
-
+        setLoading(true)
         fetch(uri).then(res => res.json()).then(data => {
+            setLoading(false)
             setRestaurants(data)
         }).catch(err => {
             setRestaurants(null)
@@ -88,7 +90,7 @@ export default function Restaurants() {
             )
         } else {
             return (
-                <div className="not-found-msg">...No Restaurants Found</div>
+                <div className="not-found-msg">{loading? "...Loading Restaurants": "No Restaurants Found"}</div>
             )
         }
     }
