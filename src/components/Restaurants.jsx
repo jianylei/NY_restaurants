@@ -72,7 +72,7 @@ export default function Restaurants() {
 
         if (jsxString && Object.keys(restaurants).length) {
             return (
-                <Table bordered hover>
+                <Table bordered hover responsive>
                     <thead>
                         <tr>
                             <th>Name</th>
