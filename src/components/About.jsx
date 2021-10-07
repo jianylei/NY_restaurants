@@ -7,6 +7,6 @@ export default function About() {
         </p>
     )
     return (
-        <CardMain head="About" subHead="All about me - the developer." body={body} />
+        <CardMain head="About" subHead="Danny Lei - the developer." body={body} />
     )
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router"
 import queryString from 'query-string';
-import { Card, Pagination, Table } from "react-bootstrap"
+import { Pagination, Table } from "react-bootstrap"
 import CardMain from "./CardMain";
 
 export default function Restaurants() {
@@ -72,7 +72,7 @@ export default function Restaurants() {
 
         if (jsxString && Object.keys(restaurants).length) {
             return (
-                <Table striped bordered hover>
+                <Table bordered hover>
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -114,6 +114,6 @@ export default function Restaurants() {
     )
 
     return (
-        <CardMain head="Restuarant List" subHead="Full list of restaurants. Optionally sorted by borough" body={body} />
+        <CardMain head="Restuarant List" subHead="Local New York restaurants. Optionally sorted by borough" body={body} />
     )
 }

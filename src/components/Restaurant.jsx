@@ -14,7 +14,7 @@ export default function Restaurant() {
 
         fetch(`https://immense-hamlet-01820.herokuapp.com/api/restaurants/${id}`).then(res => res.json()).then(data => {
             setLoading(false)
-            if (data.hasOwnProperty("_id")) {
+            if (data?.hasOwnProperty("_id")) {
                 setRestaurant(data)
             } else {
                 setRestaurant(null)
@@ -22,10 +22,10 @@ export default function Restaurant() {
         })
     }, [id])
 
-    const setCard = () => {
+    const setMap = () => {
         if (restaurant) {
             return (
-                <div className="card-main">
+                <div>
                     <MapContainer className="map-container" center={[restaurant?.address.coord[1], restaurant?.address.coord[0]]} zoom={17}
                         scrollWheelZoom={false}>
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -47,20 +47,26 @@ export default function Restaurant() {
                             <Card.Footer className="card-date">
                                 <small style={{ float: "right" }} className="text-muted">Date: {date}</small>
                             </Card.Footer>
-
                         </Card>
                     )
                 })
             )
+        } else return null
+    }
+
+    const checkLoading = () => {
+        if(loading) {
+            return "...Loading restaurant"
+        }
+        else{
+            return `${restaurant?.address.building ?? "Unable to find restaurant"} ${restaurant?.address.street?? ""}`
         }
     }
 
     return (
         <>
-            <CardMain head={restaurant?.name ?? `id: ${id}`} subHead={`${restaurant?.address.building ?? "Unable to find restaurant"} ${restaurant?.address.street}`} body={setCard()} />
-            <div className="grade-container">
-                {setGrades()}
-            </div>
+            <CardMain head={restaurant?.name ?? `id: ${id}`} subHead={checkLoading()} body={setMap() ?? ""} />
+            <div className="grade-container"> {setGrades()} </div>
         </>
     )
 }

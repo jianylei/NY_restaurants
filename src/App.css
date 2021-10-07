@@ -2,10 +2,15 @@
   font-family: 'Poppins', sans-serif;
 }
 
+/* Table */
 .table-hover tr:hover{ 
   cursor:pointer; 
 }
+td{
+  font-weight: 300;
+}
 
+/* Card */
 .card-container{
   padding: 40px;
   outline: none;
@@ -21,15 +26,18 @@
 .card-sub-title{
   font-weight: 300;
   color: rgba(0, 0, 0, 0.7);
+  margin-bottom: 20px;
 }
 
+/* Map */
 .map-container{
   height: 400px;
   width: 100%;
-  margin-top: 20px;
   border-radius: 5px;
+  
 }
 
+/* Grades */
 .grade-container{
   display: flex;
   flex-wrap: wrap;
@@ -41,7 +49,7 @@
 .card-grade{
   width: 200px;
   height: 110px;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)
 }
 
 .grade-letter{
@@ -51,7 +59,6 @@
 /* About */
 .about-body{
   font-weight: 300;
-  margin-top: 20px;
 }
 
 .not-found-msg{
