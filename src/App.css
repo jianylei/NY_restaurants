@@ -14,7 +14,7 @@ td{
 .card-container{
   padding: 40px;
   outline: none;
-  margin-top: 40px;
+  margin: 30px 0 60px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
@@ -37,21 +37,32 @@ td{
 
 /* Grades */
 .grade-container{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 25px;
   width: 100%;
   margin-top: 40px;
-  
+}
+@media (max-width: 1200px) {
+  .grade-container{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 991px) {
+  .grade-container{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 565px) {
+  .grade-container{
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 .card-grade{
   width: 200px;
   height: 110px;
   margin: auto;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)
 }
-
 @media (max-width: 454px) {
   .card-grade:last-child{
     margin-bottom: 40px;
