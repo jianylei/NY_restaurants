@@ -33,13 +33,13 @@ td{
   height: 400px;
   width: 100%;
   border-radius: 5px;
-  
 }
 
 /* Grades */
 .grade-container{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 25px;
   width: 100%;
   margin-top: 40px;
@@ -52,10 +52,11 @@ td{
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2)
 }
 
-.card-grade:last-child{
-  margin-bottom: 40px;
+@media (max-width: 454px) {
+  .card-grade:last-child{
+    margin-bottom: 40px;
+  }
 }
-
 .grade-letter{
   font-weight: 300;
 }

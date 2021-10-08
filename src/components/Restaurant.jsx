@@ -1,7 +1,7 @@
 import { useParams } from "react-router"
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Spinner } from "react-bootstrap";
 import CardMain from "./CardMain";
 
 export default function Restaurant() {
@@ -22,7 +22,7 @@ export default function Restaurant() {
         })
     }, [id])
 
-    const setMap = () => {
+    const body = () => {
         if (restaurant) {
             return (
                 <div>
@@ -31,6 +31,7 @@ export default function Restaurant() {
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                         <Marker position={[restaurant?.address.coord[1], restaurant?.address.coord[0]]}></Marker>
                     </MapContainer>
+                    <div className="grade-container"> {setGrades()} </div>
                 </div>
             )
         }
@@ -56,7 +57,11 @@ export default function Restaurant() {
 
     const checkLoading = () => {
         if(loading) {
-            return "...Loading restaurant"
+            return (
+                <div className="not-found-msg">
+                    <Spinner animation="border" role="status"></Spinner>
+                </div>
+            )
         }
         else{
             return `${restaurant?.address.building ?? "Unable to find restaurant"} ${restaurant?.address.street?? ""}`
@@ -65,8 +70,7 @@ export default function Restaurant() {
 
     return (
         <>
-            <CardMain head={restaurant?.name ?? `id: ${id}`} subHead={checkLoading()} body={setMap() ?? ""} />
-            <div className="grade-container"> {setGrades()} </div>
+            <CardMain head={restaurant?.name ?? `id: ${id}`} subHead={checkLoading()} body={body() ?? ""} />   
         </>
     )
 }
