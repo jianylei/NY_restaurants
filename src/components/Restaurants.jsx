@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router"
 import queryString from 'query-string';
-import { Pagination, Table } from "react-bootstrap"
+import { Pagination, Table, Spinner } from "react-bootstrap"
 import CardMain from "./CardMain";
 
 export default function Restaurants() {
@@ -90,7 +90,8 @@ export default function Restaurants() {
             )
         } else {
             return (
-                <div className="not-found-msg">{loading? "...Loading Restaurants": "No Restaurants Found"}</div>
+                <div className="not-found-msg">{loading ? <Spinner animation="border" role="status">
+                </Spinner> : "No Restaurants Found"}</div>
             )
         }
     }

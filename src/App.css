@@ -14,8 +14,7 @@ td{
 .card-container{
   padding: 40px;
   outline: none;
-  border-radius: 5px;
-  margin-top: 20px;
+  margin-top: 40px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
@@ -68,4 +67,5 @@ td{
 
 .not-found-msg{
   margin: 40px 0;
+  text-align: center;
 }

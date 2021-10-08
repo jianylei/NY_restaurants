@@ -43,7 +43,7 @@ function App() {
           <Form onSubmit={handleSubmit} inline>
             <FormControl type="text" placeholder="Borough" className="mr-sm-2" value={searchString}
               onChange={(e) => setSearchString(e.target.value)} />
-            <Button type="submit" variant="outline-success">Search</Button>
+            <Button type="submit" variant="outline-primary">Search</Button>
           </Form>
         </Navbar.Collapse>
       </Navbar>
